@@ -1,6 +1,7 @@
 
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
+import { getCookieValue } from './util'
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -22,7 +23,15 @@ try {
 
 window.axios = require('axios');
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+// Ajaxリクエストであることを示すヘッダーを付与する
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
+window.axios.interceptors.request.use(config => {
+  // クッキーからトークンを取り出してヘッダーに添付する
+  config.headers['X-XSRF-TOKEN'] = getCookieValue('XSRF-TOKEN')
+
+  return config
+})
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
