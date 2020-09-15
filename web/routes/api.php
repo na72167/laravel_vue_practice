@@ -19,6 +19,9 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 // ログアウト
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
+// ログインユーザー
+Route::get('/user', fn() => Auth::user())->name('user');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
