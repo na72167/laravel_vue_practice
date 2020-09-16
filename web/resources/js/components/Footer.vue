@@ -17,10 +17,10 @@ export default {
       this.$router.push('/login')
     }
   },
-  computed: {
-  isLogin () {
-    return this.$store.getters['auth/check']
-  }
-},
+    computed: {
+    isLogin () {
+      return this.$store.getters['auth/check']
+    }
+  },
 }
 </script>
